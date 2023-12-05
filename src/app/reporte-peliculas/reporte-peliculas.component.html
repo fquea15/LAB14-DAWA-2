@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <div class="card">
+    <h1 class="card-header text-center">Informe de Películas</h1>
+    <div class="card-body">
+      <form #myForm="ngForm">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="genero">Filtrar por Género:</label>
+            <input type="text" id="genero" [(ngModel)]="filtroGenero" [ngModelOptions]="{ standalone: true }" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="anio">Filtrar por Año:</label>
+            <input type="number" id="anio" [(ngModel)]="filtroAnio" [ngModelOptions]="{ standalone: true }" class="form-control">
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <button (click)="aplicarFiltros()" class="btn btn-primary">Aplicar Filtros</button>
+          <div class="btn-group">
+            <button type="button" (click)="generarPDF()" class="btn btn-success">Generar PDF</button>
+            <button type="button" (click)="generarExcel()" class="btn btn-success">Generar Excel</button>
+            <button type="button" (click)="exportarCSV()" class="btn btn-success">Exportar CSV</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-container mt-4">
+    <div class="card">
+      <div class="card-body overflow-auto">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Título</th>
+              <th scope="col">Género</th>
+              <th scope="col">Año de lanzamiento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let pelicula of (filtroGenero || filtroAnio) ? peliculasFiltradas : peliculas">
+              <td>{{ pelicula.titulo }}</td>
+              <td>{{ pelicula.genero }}</td>
+              <td>{{ pelicula.lanzamiento }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
